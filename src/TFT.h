@@ -60,17 +60,20 @@ extern TFT EsploraTFT;
 #endif
 #else
 typedef struct TFT TFT;
+typedef uint16_t TFT_color_t;
 #endif
 #ifdef __cplusplus
 extern "C" {
 #endif
 #include "inttypes.h"
-extern TFT* TFT_Create();
-extern void TFT_Begin(TFT*);
-extern void TFT_Background(TFT* scr, uint16_t color);
-extern void TFT_drawRect(TFT* scr, uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color);
-extern void TFT_drawText(TFT* scr, uint8_t x0, uint8_t y0, const char *text);
-extern void TFT_drawBitmap(TFT* scr, uint8_t x0, uint8_t y0, const uint8_t *bitmap, uint8_t w, uint8_t h, uint16_t color);
+TFT* TFT_Create();
+void TFT_Begin(TFT*);
+void TFT_Background(TFT* scr, uint16_t color);
+void TFT_drawRect(TFT* scr, uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color);
+void TFT_drawText(TFT* scr, uint8_t x0, uint8_t y0, const char *text);
+void TFT_drawBitmap(TFT* scr, uint8_t x0, uint8_t y0, const uint8_t *bitmap, uint8_t w, uint8_t h, uint16_t color);
+void TFT_setTextSize(TFT *scr, uint8_t size);
+void TFT_stroke(TFT *scr, uint16_t color);
 #ifdef __cplusplus
 }
 #endif

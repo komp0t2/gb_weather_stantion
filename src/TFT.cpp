@@ -34,8 +34,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 TFT EsploraTFT(7, 0, 1);
 #endif
 
-TFT::TFT(uint8_t CS, uint8_t RS, uint8_t RST) 
-  : Adafruit_ST7735(CS, RS, RST)
+TFT::TFT(uint8_t CS, uint8_t RS, uint8_t RST)
+    : Adafruit_ST7735(CS, RS, RST)
 {
   // as we already know the orientation (landscape, therefore rotated),
   // set default width and height without need to call begin() first.
@@ -43,34 +43,41 @@ TFT::TFT(uint8_t CS, uint8_t RS, uint8_t RST)
   _height = ST7735_TFTHEIGHT;
 }
 
-void TFT::begin() {
-initR(INITR_REDTAB);
-//  initG();
+void TFT::begin()
+{
+  initR(INITR_REDTAB);
+  //  initG();
   setRotation(2);
 }
-extern "C" TFT* TFT_Create()
+extern "C" TFT *TFT_Create()
 {
   return &screen;
 }
-extern "C" void TFT_Begin(TFT* scr)
+extern "C" void TFT_Begin(TFT *scr)
 {
   scr->begin();
 }
-extern "C" void TFT_Background(TFT* scr, uint16_t color)
+extern "C" void TFT_Background(TFT *scr, uint16_t color)
 {
   scr->background(color);
 }
-extern "C" void TFT_drawRect(TFT* scr, uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color)
+extern "C" void TFT_drawRect(TFT *scr, uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color)
 {
   scr->drawRect(x0, y0, w, h, color);
 }
-extern "C" void TFT_drawText(TFT* scr, uint8_t x0, uint8_t y0, const char *text)
+extern "C" void TFT_drawText(TFT *scr, uint8_t x0, uint8_t y0, const char *text)
 {
-  scr->setTextSize(1);
-  scr->stroke(TFT_COLOR_WHITE);
   scr->text(text, x0, y0);
 }
-extern "C" void TFT_drawBitmap(TFT* scr, uint8_t x0, uint8_t y0, const uint8_t *bitmap, uint8_t w, uint8_t h, uint16_t color)
+extern "C" void TFT_drawBitmap(TFT *scr, uint8_t x0, uint8_t y0, const uint8_t *bitmap, uint8_t w, uint8_t h, uint16_t color)
 {
   scr->drawBitmap(x0, y0, bitmap, w, h, color);
+}
+extern "C" void TFT_setTextSize(TFT *scr, uint8_t size)
+{
+  scr->setTextSize(size);
+}
+extern "C" void TFT_stroke(TFT *scr, uint16_t color)
+{
+  scr->stroke(color);
 }

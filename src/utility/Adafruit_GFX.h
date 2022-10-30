@@ -57,7 +57,7 @@
 #if defined(__SD_H__)  // Arduino SD library
  #include "PImage.h"
 #else
- #warning "The SD library was not found. loadImage() and image() won't be supported."
+ //#warning "The SD library was not found. loadImage() and image() won't be supported."
 #endif
 
 #define swap(a, b) { int16_t t = a; a = b; b = t; }
