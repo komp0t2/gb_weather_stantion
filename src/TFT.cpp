@@ -48,11 +48,29 @@ initR(INITR_REDTAB);
 //  initG();
   setRotation(2);
 }
-extern "C" TFT* TFT_Create_c()
+extern "C" TFT* TFT_Create()
 {
   return &screen;
 }
-extern "C" void TFT_Begin_c(TFT* scr)
+extern "C" void TFT_Begin(TFT* scr)
 {
   scr->begin();
+}
+extern "C" void TFT_Background(TFT* scr, uint16_t color)
+{
+  scr->background(color);
+}
+extern "C" void TFT_drawRect(TFT* scr, uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color)
+{
+  scr->drawRect(x0, y0, w, h, color);
+}
+extern "C" void TFT_drawText(TFT* scr, uint8_t x0, uint8_t y0, const char *text)
+{
+  scr->setTextSize(1);
+  scr->stroke(TFT_COLOR_WHITE);
+  scr->text(text, x0, y0);
+}
+extern "C" void TFT_drawBitmap(TFT* scr, uint8_t x0, uint8_t y0, const uint8_t *bitmap, uint8_t w, uint8_t h, uint16_t color)
+{
+  scr->drawBitmap(x0, y0, bitmap, w, h, color);
 }

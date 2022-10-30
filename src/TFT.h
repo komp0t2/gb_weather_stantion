@@ -34,11 +34,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TFT_CS 10
 #define TFT_RS 9
 #define TFT_RST 8
+#define TFT_COLOR_BLACK 0x0
+#define TFT_COLOR_WHITE 0xFFFF
 #ifdef __cplusplus
 #include "Arduino.h"
 #include "utility/Adafruit_GFX.h"
 #include "utility/Adafruit_ST7735.h"
-
 /// The Arduino LCD is a ST7735-based device.
 /// By default, it is mounted horizontally.
 /// TFT class follows the convention of other
@@ -63,8 +64,13 @@ typedef struct TFT TFT;
 #ifdef __cplusplus
 extern "C" {
 #endif
-extern TFT* TFT_Create_c();
-extern void TFT_Begin_c(TFT*);
+#include "inttypes.h"
+extern TFT* TFT_Create();
+extern void TFT_Begin(TFT*);
+extern void TFT_Background(TFT* scr, uint16_t color);
+extern void TFT_drawRect(TFT* scr, uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color);
+extern void TFT_drawText(TFT* scr, uint8_t x0, uint8_t y0, const char *text);
+extern void TFT_drawBitmap(TFT* scr, uint8_t x0, uint8_t y0, const uint8_t *bitmap, uint8_t w, uint8_t h, uint16_t color);
 #ifdef __cplusplus
 }
 #endif

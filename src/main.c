@@ -1,16 +1,8 @@
 #include "Arduino.h"
-#include "util/delay.h"
-#define SCREEN_CS 10
-#define SCREEN_DC 9
-#define SCREEN_RST 8
-
-#include "TFT.h"
-TFT *display;
 void setup()
 {
     pinMode(4, OUTPUT);
-    display = TFT_Create_c();
-    TFT_Begin_c(display);
+    disp_init();
 }
 void loop()
 {
