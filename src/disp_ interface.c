@@ -9,6 +9,7 @@ typedef struct tab_t tab_t;
 void draw_tab(tab_t *draw_tab);
 void temp_draw(item_t *draw_item);
 void light_draw(item_t *draw_item);
+void light_update(item_t *draw_item);
 void draw_button();
 struct item_t
 {
@@ -47,7 +48,7 @@ tab_t name = {&first, &select, draw}
 /********************************************************************************/
 MENU_TAB(main_tab,temp,temp,0);
 MENU_ITEM(temp, main_tab, null_tab, light, light, 10, 20, temp_draw, 0, 0, "Temp");
-MENU_ITEM(light, main_tab, null_tab, light, temp, 10, 50, light_draw, 0, 0, "Light");
+MENU_ITEM(light, main_tab, null_tab, light, temp, 10, 50, light_draw, 0, light_update, "Light");
 /********************************************************************************/
 /********************************************************************************/
 tab_t *tab = &main_tab;
@@ -93,28 +94,28 @@ void light_draw(item_t *draw_item)
     {
         sprintf(text_light, "%d", param.light);
     }
-    TFT_drawText(display, draw_item->x, draw_item->y, text_light);
+    TFT_drawText(display, draw_item->x+10, draw_item->y+3, light_text_buf);
     TFT_drawBitmap(display, draw_item->x, draw_item->y+20,light_bitmap, light_bitmap_w, light_bitmap_h, TFT_COLOR_WHITE);
     memcpy(light_text_buf, text_light, sizeof(light_text_buf)/sizeof(light_text_buf[0]));
 }
 void light_update(item_t *draw_item)
 {
-    TFT_setTextSize(display, 2);
-    TFT_stroke(display, background_color);
-    TFT_drawText(display, draw_item->x, draw_item->y, light_text_buf);
-    TFT_stroke(display, TFT_COLOR_WHITE);
     if(param_station_get(&param))
     {
+        TFT_setTextSize(display, 2);
+        TFT_stroke(display, background_color);
+        TFT_drawText(display, draw_item->x+10, draw_item->y+3, light_text_buf);
+        TFT_stroke(display, TFT_COLOR_WHITE);
         sprintf(light_text_buf, "%d", param.light);
-    }
-    TFT_drawText(display, draw_item->x, draw_item->y, light_text_buf);
+        TFT_drawText(display, draw_item->x+10, draw_item->y+3, light_text_buf);
+    }  
 }
 void disp_update()
 {
     item_t *item = tab->first;
     while(item != &null_item)
     {
-        if(item->draw != 0)
+        if(item->update != 0)
         {
             item->update(item);
         }
